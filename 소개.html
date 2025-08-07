@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>김민성 소개 페이지</title>
+  <style>
+    :root {
+      --bg-color: #f5faff;
+      --text-color: #222;
+      --card-bg: #ffffff;
+      --accent-color: #1976d2;
+      --button-bg: #eeeeee;
+      --label-color: #1976d2;
+    }
+
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #eeeeee;
+      --card-bg: #1e1e1e;
+      --accent-color: #90caf9;
+      --button-bg: #333333;
+      --label-color: #90caf9;
+    }
+
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-image:
+        radial-gradient(circle at 0% 50%, #d0e9ff33 0%, transparent 50%),
+        radial-gradient(circle at 100% 50%, #d0e9ff33 0%, transparent 50%);
+      background-repeat: no-repeat;
+      background-size: 300px 100%;
+      background-position: left, right;
+      transition: all 0.3s ease;
+    }
+
+    header {
+      background-color: var(--accent-color);
+      width: 100%;
+      padding: 20px 0;
+      text-align: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .language-selector {
+      margin: 20px;
+    }
+
+    .language-selector button,
+    .theme-toggle {
+      margin: 5px;
+      padding: 10px 16px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: var(--button-bg);
+      color: var(--text-color);
+      cursor: pointer;
+    }
+
+    .language-selector button:hover,
+    .theme-toggle:hover {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    .profile-image {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      margin-top: 20px;
+    }
+
+    .container {
+      background-color: var(--card-bg);
+      padding: 30px;
+      margin-top: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 80%;
+      text-align: center;
+    }
+
+    .label {
+      font-weight: bold;
+      color: var(--label-color);
+    }
+
+    .greet-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .greet-button:hover {
+      background-color: #125ea5;
+    }
+
+    .guestbook, .gallery, .post-form, .post-list, .post-view {
+      background-color: var(--card-bg);
+      padding: 20px;
+      margin: 40px 0;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 800px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    button {
+      padding: 10px 16px;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #125ea5;
+    }
+
+    .guestbook-entry {
+      margin-top: 15px;
+      text-align: left;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+    }
+
+    .guestbook-entry strong {
+      color: var(--label-color);
+    }
+
+    .gallery input {
+      margin-bottom: 15px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .post-title {
+      cursor: pointer;
+      color: var(--label-color);
+      margin: 10px 0;
+    }
+
+    .post-title:hover {
+      text-decoration: underline;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      background: #888;
+    }
+
+    #view-image {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header-text">안녕하세요. 김민성입니다.</header>
+
+  <div class="language-selector">
+    <button onclick="setLanguage('ko')">한국어</button>
+    <button onclick="setLanguage('zh')">中文</button>
+    <button onclick="setLanguage('ja')">日本語</button>
+    <button onclick="setLanguage('en')">English</button>
+    <button onclick="setLanguage('fr')">Français</button>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙/☀️ 테마 전환</button>
+  </div>
+
+  <img src="IMG_4712.jpg" alt="김민성 프로필 사진" class="profile-image">
+
+  <div class="container" id="info-box">
+    <p><span class="label" id="label-name">이름:</span> <span id="value-name">김민성</span></p>
+    <p><span class="label" id="label-hobby">취미:</span> <span id="value-hobby">영화 감상, 산책, 코딩</span></p>
+    <p><span class="label" id="label-email">이메일:</span> <span id="value-email">minseong.kim@example.com</span></p>
+    <button class="greet-button" id="greet-button" onclick="sayHello()">인사하기</button>
+  </div>
+
+  <div class="guestbook">
+    <h2>📒 방명록</h2>
+    <input type="text" id="guest-name" placeholder="이름을 입력하세요">
+    <textarea id="guest-message" placeholder="메시지를 남겨주세요" rows="4"></textarea>
+    <button onclick="addEntry()">남기기</button>
+    <div id="guestbook-entries"></div>
+  </div>
+
+  <div class="gallery">
+    <h2>📷 갤러리</h2>
+    <input type="file" accept="image/*" multiple onchange="addImages(event)">
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </div>
+
+  <div class="post-form" id="post-form">
+    <h2>📝 게시글 작성</h2>
+    <input type="text" id="new-title" placeholder="제목을 입력하세요">
+    <textarea id="new-content" rows="5" placeholder="내용을 입력하세요"></textarea>
+    <input type="file" id="new-image" accept="image/*">
+    <button onclick="submitPost()">작성</button>
+  </div>
+
+  <div class="post-list" id="post-list">
+    <h2>📃 게시글 목록</h2>
+    <div id="posts"></div>
+  </div>
+
+  <div class="post-view" id="post-view" style="display:none;">
+    <h2 id="view-title"></h2>
+    <p id="view-content"></p>
+    <img id="view-image" />
+    <button class="back-btn" onclick="goBack()">← 목록으로</button>
+  </div>
+
+  <script>
+    const translations = {
+      ko: {
+        header: "안녕하세요. 김민성입니다.",
+        name: "이름:",
+        hobby: "취미:",
+        email: "이메일:",
+        nameValue: "김민성",
+        hobbyValue: "영화 감상, 산책, 코딩",
+        emailValue: "minseong.kim@example.com",
+        button: "인사하기",
+        greeting: "반갑습니다! 😊 김민성입니다."
+      },
+      zh: {
+        header: "你好，我是金民成。",
+        name: "姓名:",
+        hobby: "兴趣:",
+        email: "电子邮件:",
+        nameValue: "金民成",
+        hobbyValue: "看电影、散步、编程",
+        emailValue: "minseong.kim@example.com",
+        button: "打招呼",
+        greeting: "很高兴认识你！😊 我是金民成。"
+      },
+      ja: {
+        header: "こんにちは、キム・ミンソンです。",
+        name: "名前:",
+        hobby: "趣味:",
+        email: "メール:",
+        nameValue: "キム・ミンソン",
+        hobbyValue: "映画鑑賞、散歩、コーディング",
+        emailValue: "minseong.kim@example.com",
+        button: "挨拶する",
+        greeting: "はじめまして！😊 キム・ミンソンです。"
+      },
+      en: {
+        header: "Hello, I'm Minseong Kim.",
+        name: "Name:",
+        hobby: "Hobbies:",
+        email: "Email:",
+        nameValue: "Minseong Kim",
+        hobbyValue: "Watching movies, walking, coding",
+        emailValue: "minseong.kim@example.com",
+        button: "Say Hello",
+        greeting: "Nice to meet you! 😊 I'm Minseong Kim."
+      },
+      fr: {
+        header: "Bonjour, je suis Minseong Kim.",
+        name: "Nom:",
+        hobby: "Loisirs:",
+        email: "Email:",
+        nameValue: "Minseong Kim",
+        hobbyValue: "Regarder des films, marcher, coder",
+        emailValue: "minseong.kim@example.com",
+        button: "Dire bonjour",
+        greeting: "Enchanté ! 😊 Je m'appelle Minseong Kim."
+      }
+    };
+
+    let currentLang = 'ko';
+    let posts = [];
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+      document.getElementById('header-text').textContent = t.header;
+      document.getElementById('label-name').textContent = t.name;
+      document.getElementById('label-hobby').textContent = t.hobby;
+      document.getElementById('label-email').textContent = t.email;
+      document.getElementById('value-name').textContent = t.nameValue;
+      document.getElementById('value-hobby').textContent = t.hobbyValue;
+      document.getElementById('value-email').textContent = t.emailValue;
+      document.getElementById('greet-button').textContent = t.button;
+    }
+
+    function sayHello() {
+      alert(translations[currentLang].greeting);
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+    }
+
+    function addEntry() {
+      const name = document.getElementById("guest-name").value.trim();
+      const message = document.getElementById("guest-message").value.trim();
+      if (!name || !message) return alert("이름과 메시지를 입력하세요.");
+      const entry = document.createElement("div");
+      entry.classList.add("guestbook-entry");
+      entry.innerHTML = `<strong>${name}</strong><p>${message}</p>`;
+      document.getElementById("guestbook-entries").prepend(entry);
+      document.getElementById("guest-name").value = '';
+      document.getElementById("guest-message").value = '';
+    }
+
+    function addImages(event) {
+      const files = event.target.files;
+      const grid = document.getElementById("gallery-grid");
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          grid.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function submitPost() {
+      const title = document.getElementById("new-title").value.trim();
+      const content = document.getElementById("new-content").value.trim();
+      const imageFile = document.getElementById("new-image").files[0];
+
+      if (!title || !content) return alert("제목과 내용을 입력하세요.");
+
+      if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          posts.unshift({ id: Date.now(), title, content, image: e.target.result });
+          clearPostForm(); renderPostList();
+        };
+        reader.readAsDataURL(imageFile);
+      } else {
+        posts.unshift({ id: Date.now(), title, content, image: null });
+        clearPostForm(); renderPostList();
+      }
+    }
+
+    function clearPostForm() {
+      document.getElementById("new-title").value = "";
+      document.getElementById("new-content").value = "";
+      document.getElementById("new-image").value = "";
+    }
+
+    function renderPostList() {
+      const container = document.getElementById("posts");
+      container.innerHTML = "";
+      posts.forEach(post => {
+        const div = document.createElement("div");
+        div.className = "post-title";
+        div.textContent = post.title;
+        div.onclick = () => showPost(post.id);
+        container.appendChild(div);
+      });
+    }
+
+    function showPost(id) {
+      const post = posts.find(p => p.id === id);
+      if (!post) return;
+      document.getElementById("view-title").textContent = post.title;
+      document.getElementById("view-content").textContent = post.content;
+      const img = document.getElementById("view-image");
+      if (post.image) {
+        img.src = post.image;
+        img.style.display = "block";
+      } else {
+        img.style.display = "none";
+      }
+      document.getElementById("post-form").style.display = "none";
+      document.getElementById("post-list").style.display = "none";
+      document.getElementById("post-view").style.display = "block";
+    }
+
+    function goBack() {
+      document.getElementById("post-form").style.display = "block";
+      document.getElementById("post-list").style.display = "block";
+      document.getElementById("post-view").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
